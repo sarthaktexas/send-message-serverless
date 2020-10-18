@@ -1,20 +1,33 @@
-var fetch = require('node-fetch');
-var btoa = require('btoa');
+const client = require('twilio')(process.env.ACCOUNT_ID, process.env.AUTH_KEY);
 
 module.exports = (req, res) => {
     if (req.query.body && req.query.to) {
         try {
-            fetch('https://api.twilio.com/2010-04-01/Accounts/' + process.env.ACCOUNT_ID + '/Messages.json', {
-                method: 'POST',
-                body: {
-                    'Body': decodeURIComponent(req.query.body),
-                    'From': process.env.PHONE_NUMBER,
-                    'To': decodeURIComponent(req.query.to)
-                },
-                headers: {
-                    'Authorization': 'Basic ' + btoa(`${process.env.ACCOUNT_ID}:${process.env.AUTH_KEY}`)
-                }
-            }).then(res => res.send(res.body)).catch(err => res.send(err));
+            client.messages
+                .create({
+                    body: decodeURIComponent(req.query.body),
+                    from: process.env.PHONE_NUMBER,
+                    to: decodeURIComponent(req.query.to),
+                })
+                .then((res) => {
+                    console.log(message);
+                    res.json({
+                        "api_version": res.api_version,
+                        "body": res.body,
+                        "date_created": res.date_created,
+                        "date_sent": res.date_sent,
+                        "date_updated": res.date_updated,
+                        "direction": res.direction,
+                        "error_code": res.error_code,
+                        "error_message": res.error_message,
+                        "num_media": res.num_media,
+                        "num_segments": res.num_segments,
+                        "price": res.price,
+                        "price_unit": res.price_unit,
+                        "status": res.status,
+                        "to": res.to
+                    });
+                });
         } catch (err) {
             res.send(err);
         }
