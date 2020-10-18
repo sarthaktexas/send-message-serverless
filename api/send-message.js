@@ -7,14 +7,14 @@ module.exports = (req, res) => {
             fetch('https://api.twilio.com/2010-04-01/Accounts/' + process.env.ACCOUNT_ID + '/Messages.json', {
                 method: 'POST',
                 body: {
-                    'Body': req.query.body,
+                    'Body': decodeURIComponent(req.query.body),
                     'From': process.env.PHONE_NUMBER,
-                    'To': req.query.to
+                    'To': decodeURIComponent(req.query.to)
                 },
                 headers: {
                     'Authorization': 'Basic ' + btoa(`${process.env.ACCOUNT_ID}:${process.env.AUTH_KEY}`)
                 }
-            }).then(data => res.send(data.data)).catch(err => res.send(err));
+            }).then(data => res.send("Success! Sent the message " + `"${req.query.body}"`).catch(err => res.send(err));
         } catch (err) {
             res.send(err);
         }
