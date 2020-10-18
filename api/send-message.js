@@ -6,7 +6,7 @@ module.exports = (req, res) => {
         method: 'POST',
         headers: {
             'Authorization': 'Basic ' + btoa(`${process.env.ACCOUNT_ID}:${process.env.AUTH_KEY}`)
-        }
+        },
         body: {
             'Body': req.params.body,
             'From': process.env.PHONE_NUMBER,
