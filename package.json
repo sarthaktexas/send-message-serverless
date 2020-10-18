@@ -4,7 +4,6 @@
   "private": true,
   "scripts": {},
   "dependencies": {
-    "btoa": "1.2.1",
-    "node-fetch": "2.6.1"
+    "twilio": "3.50.0"
   }
 }
