@@ -9,23 +9,24 @@ module.exports = (req, res) => {
                     from: process.env.PHONE_NUMBER,
                     to: decodeURIComponent(req.query.to),
                 })
-                .then((res) => {
+                
+                .then((message) => {
                     console.log(message);
                     res.json({
-                        "api_version": res.api_version,
-                        "body": res.body,
-                        "date_created": res.date_created,
-                        "date_sent": res.date_sent,
-                        "date_updated": res.date_updated,
-                        "direction": res.direction,
-                        "error_code": res.error_code,
-                        "error_message": res.error_message,
-                        "num_media": res.num_media,
-                        "num_segments": res.num_segments,
-                        "price": res.price,
-                        "price_unit": res.price_unit,
-                        "status": res.status,
-                        "to": res.to
+                        "api_version": message.api_version,
+                        "body": message.body,
+                        "date_created": message.date_created,
+                        "date_sent": message.date_sent,
+                        "date_updated": message.date_updated,
+                        "direction": message.direction,
+                        "error_code": message.error_code,
+                        "error_message": message.error_message,
+                        "num_media": message.num_media,
+                        "num_segments": message.num_segments,
+                        "price": message.price,
+                        "price_unit": message.price_unit,
+                        "status": message.status,
+                        "to": message.to
                     });
                 });
         } catch (err) {
