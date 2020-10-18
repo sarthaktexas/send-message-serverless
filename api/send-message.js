@@ -14,7 +14,7 @@ module.exports = (req, res) => {
                 headers: {
                     'Authorization': 'Basic ' + btoa(`${process.env.ACCOUNT_ID}:${process.env.AUTH_KEY}`)
                 }
-            }).then(data => res.send("Success! Sent the message:\n " + req.query.body)).catch(err => res.send(err));
+            }).then(res => res.send(res.body)).catch(err => res.send(err));
         } catch (err) {
             res.send(err);
         }
